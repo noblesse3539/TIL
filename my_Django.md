@@ -51,6 +51,8 @@ INSTALLED_APPS = (
        cdate = models.DateTimeField(auto_now_add=True)
    ```
 
+
+
 ### 2.  앱 변화 확인 및 모델 생성
 
    ``` powershell
@@ -59,57 +61,59 @@ INSTALLED_APPS = (
    
    ```
 
-### 3.  url 경로 설정
+
+
+### 3.  url 패턴 정의
+
+path : url 패턴을 정의
+
+re_path : 정규식 표현을 사용하여 정의
 
    ``` python
    #urls.py
-   from community import views
-   
-   urlpatterns = [
-       path('write/', views.write, name='write'),
-   ]
+from django.contrib import admin
+from django.urls import path, re_path
+from community import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('write/', views.write, name='write'),
+    path('lists/', views.lists, name='lists'),
+    re_path(r'view/(?P<num>[0-9]+)/$', views.view, name='view'),
+]
    ```
+
+
 
 ### 4.  views 작성
 
    ``` python
    # views.py
    
-   def write(request):
-       return render(request, 'write.html')
+from django.shortcuts import render
+from community.forms import *
+
+def write(request):
+    if request.method == 'POST':
+        form = Form(request.POST)
+        if form.is_valid():
+            form.save() # 데이터베이스에 저장함
+    else :
+        form = Form()
+    return render(request, 'write.html', {'form':form})
+
+def lists(request):
+    articleList = Article.objects.all()
+    return render(request, 'list.html', {'articleList':articleList} )
+
+def view(request, num="1"):
+    article = Article.objects.get(id=num)
+    return render(request, 'view.html', {'article':article})
    ```
 
-### 5. 템플릿 작성 (html)
 
-앱 디렉터리(여기선 community)에 templates 폴더 생성후, 이곳에 html문서 작성
 
-   ```html
-   <!-- write.html -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>write</title>
-</head>
-<body>
-    <form action="", method="POST">
-        <!-- {% comment %}
-            {{ form.as_table }} 
-            {{ form.as_p }}
-            {{ form.as_ul }}
-        {% endcomment %} -->
-        {{ form.as_p }}
-        {% csrf_token %}
-        <button type="submit", class = "btnbtn-primary">저장</button>
-    </form>
-</body>
-</html>
-   ```
-
-### 6. Forms.py
+### 5. Forms.py
 
 ``` python
 from django.forms import ModelForm
@@ -122,4 +126,90 @@ class Form(ModelForm):
         
 # 이곳에 생성한 폼을 view에서 사용 가능
 ```
+
+
+
+### 6. 템플릿 작성 (html)
+
+앱 디렉터리(여기선 community)에 templates 폴더 생성후, 이곳에 html문서 작성
+
+* #### write.html
+
+  ``` html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>write</title>
+  </head>
+  <body>
+      <form action="", method="POST">
+          <!-- {% comment %}
+              {{ form.as_table }} 
+              {{ form.as_p }}
+              {{ form.as_ul }}
+          {% endcomment %} -->
+          {{ form.as_p }}
+          {% csrf_token %}
+          <button type="submit", class = "btnbtn-primary">저장</button>
+      </form>
+  </body>
+  </html>
+  ```
+
+
+
+* #### list.html
+
+  ``` html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>write</title>
+  </head>
+  <body>
+      <ul>
+          <li>제목 | 저자 | 날짜</li>
+      {% for article in articleList %}
+          <li><a href="/view/{{article.id}}"> article.title}} </a>| {{ article.name }} | {{article.cdate|date:"D d M Y" }}</li>
+      {% endfor %}
+      </ul>
+  </body>
+  </html>
+  ```
+
+
+
+* #### view.html
+
+  ``` html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>write</title>
+  </head>
+  <body>
+      제 목 : {{ article.title }}
+      <br>
+      저 자 : {{ article.name}}
+      <br>
+      내 용 : {{ article.contents}}
+      <br>
+      Email : {{ article.email}}
+      <br>
+  </body>
+  </html>
+  ```
+
+
+
+
 
