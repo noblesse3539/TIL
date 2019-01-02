@@ -51,7 +51,7 @@ $ git commit -m "커밋메시지"
 
 
 
-### git status
+### 4. git status
 
 git의 현재 상태를 확인한다. 자주자주 입력해보자!
 
@@ -60,6 +60,8 @@ $ git status
 ```
 
 ---
+
+
 
 ## 원격 저장소로 보내기(push)
 
@@ -75,5 +77,25 @@ $ git remote add origin https://github.com/noblesse3539/TIL.git
 
 ```
 $ git push -u origin master
+```
+
+
+
+## 원격 저장소에서 가져오기(pull)
+
+github 원격 저장소에서 변경된 커밋 내용(파일)을 가져오기 위해서는 `pull` 명령어를 사용한다.
+
+``` powershell
+$ git pull origin master
+```
+
+
+
+## 원격 저장소 복제하기(clone)
+
+원격 저장소를 복제하기 위해서는 `clone`명령어를 사용한다.
+
+``` powershell
+$ git clone https://github.com/???.git
 ```
 
