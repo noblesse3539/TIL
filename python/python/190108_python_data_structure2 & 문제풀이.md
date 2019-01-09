@@ -22,3 +22,49 @@ def duplicated(alphabets):
     return [x for x in alphabets if alphabets.count(x) >1 and not (x in result or result.add(x))]
 ```
 
+
+
+## 2. 딕셔너리 메소드 활용
+
+1) pop(keyp, default])
+
+​	key가 딕셔너리에 있으면 제거하고 그 값을 돌려준다. 그렇지 않으면 default를 반환한다.
+
+``` python
+my_dict = {'apple': '사과'}
+my_dict.pop('apple')
+```
+
+> '사과'
+
+​	이후에 my_dict.pop('apple')을 수행 할 경우 `KeyError`를 띄운다.
+
+``` python
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-3-2a8b4f967f4a> in <module>
+----> 1 my_dict.pop('apple')
+
+KeyError: 'apple'
+```
+
+default를 설정할 경우 딕셔너리에 키가 없더라도 정해진 값을 리턴시킬 수 있다.
+
+``` python
+my_dict.pop('apple', 0)
+```
+
+> 0
+
+
+
+2) .update()
+
+​	값을 제공하는 key, value로 덮어쓴다.
+
+``` python
+my_dict.update({'pineapple':'파인애플'})
+print(my_dict)
+```
+
+​	my_dict에 파인애플이 추가된다.
