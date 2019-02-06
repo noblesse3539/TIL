@@ -37,7 +37,7 @@
 * row: 요소들을 텍스트의 방향과 동일하게 정렬
 * row-reverse: 요소들을 텍스트의 반대 방향으로 정렬
 * column: 요소들을 위에서 아래로 정렬
-* column-reverse: 요솓ㄹ을 아래에서 위로 정렬
+* column-reverse: 요소들을 아래에서 위로 정렬
 
 ``` css
 #pond {
