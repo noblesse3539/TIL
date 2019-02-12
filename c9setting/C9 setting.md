@@ -43,14 +43,15 @@ exec "$SHELL"
 ### 실행
 
 ``` powershell
-pyenv virtualenv 3.6.7 flask-venv (가상환경 이름)
-pyenv local flask-venv(가상환경 이름)
+pyenv virtualenv 3.6.7 (가상환경 이름)
+pyenv local (가상환경 이름)
 ```
 
 
 
 ```powershell
-pip install flask
+pip install flask	(플라스크 설치할 경우)
+pip install django	(장고 설치할 경우)
 pip freeze > req.txt
 ```
 
