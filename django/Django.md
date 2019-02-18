@@ -60,6 +60,8 @@
 
 ``` bash
 /django_intro $ django-admin startapp <app 이름>
+또는
+$ python manage.py startapp <app 이름>
 ```
 
 
@@ -376,5 +378,3 @@ TEMPLATES = [
    ├── urls.py
    └── views.py
    ```
-
-   
