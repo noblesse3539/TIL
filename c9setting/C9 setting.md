@@ -109,7 +109,7 @@ def greeting(name):
 > c9은 기본적으로 workspace에서 git config가 가입한 이메일로 되어 있기 떄문에, github에 커밋 기록을 제대로 남기기 위해서 설정해준다.
 
 ```powershell
-git config global --user.name _______
-git config global --user.email ______
+git config --global user.name _______
+git config --global user.email ______
 ```
 

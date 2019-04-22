@@ -25,7 +25,7 @@
    class Board(models.Model):
        title = models.charField(max_length=10)
        content = models.TextField()
-       created_at = model.DateTimeField(auto_now_add=True)
+       created_at = models.DateTimeField(auto_now_add=True)
        updated_at = models.DateTimeField(auto_now=True)
    ```
 
@@ -207,3 +207,4 @@
    ```
 
    
+
